@@ -6,7 +6,6 @@
     },
     "ControlService.ControlOwners": {
       "kind": "entity",
-      "@insert": true,
       "source": "com.cap.only.control.ControlOwners",
       "elements": {
         "ID": {
@@ -67,6 +66,7 @@
           "@cds.persistence.name": "CONTROL_ID"
         }
       },
+      "@cds.persistence.skip": true,
       "@cds.persistence.name": "CONTROLSERVICE_CONTROLOWNERS"
     },
     "ControlService.ControlGroups": {
@@ -649,9 +649,32 @@
           "redirected": true,
           "@cds.persistence.name": "COUNTRY"
         },
+        "controlOwners": {
+          "origin": "com.cap.only.control.ControlsView..controlOwners",
+          "indexNo": 5,
+          "value": {
+            "=": "ControlsView.controlOwners"
+          },
+          "type": "cds.Association",
+          "target": "ControlService.ControlOwners",
+          "cardinality": {
+            "targetMax": "*"
+          },
+          "foreignKeys": {
+            "ID": {
+              "origin": "com.cap.only.control.ControlsView..controlOwners.ID",
+              "indexNo": 1,
+              "path": "ID",
+              "generatedFieldName": "controlOwners_ID",
+              "@cds.persistence.name": "ID"
+            }
+          },
+          "redirected": true,
+          "@cds.persistence.name": "CONTROLOWNERS"
+        },
         "controlGroup": {
           "origin": "com.cap.only.control.ControlsView..controlGroup",
-          "indexNo": 5,
+          "indexNo": 6,
           "value": {
             "=": "ControlsView.controlGroup"
           },
@@ -660,7 +683,7 @@
         },
         "controlRiskLevel": {
           "origin": "com.cap.only.control.ControlsView..controlRiskLevel",
-          "indexNo": 6,
+          "indexNo": 7,
           "value": {
             "=": "ControlsView.controlRiskLevel"
           },
@@ -669,7 +692,7 @@
         },
         "controlSignificance": {
           "origin": "com.cap.only.control.ControlsView..controlSignificance",
-          "indexNo": 7,
+          "indexNo": 8,
           "value": {
             "=": "ControlsView.controlSignificance"
           },
@@ -678,7 +701,7 @@
         },
         "operationFrequency": {
           "origin": "com.cap.only.control.ControlsView..operationFrequency",
-          "indexNo": 8,
+          "indexNo": 9,
           "value": {
             "=": "ControlsView.operationFrequency"
           },
@@ -687,7 +710,7 @@
         },
         "validFrom": {
           "origin": "com.cap.only.control.ControlsView..validFrom",
-          "indexNo": 9,
+          "indexNo": 10,
           "value": {
             "=": "ControlsView.validFrom"
           },
@@ -696,7 +719,7 @@
         },
         "validTo": {
           "origin": "com.cap.only.control.ControlsView..validTo",
-          "indexNo": 10,
+          "indexNo": 11,
           "value": {
             "=": "ControlsView.validTo"
           },
@@ -705,7 +728,7 @@
         },
         "ownerName": {
           "origin": "com.cap.only.control.ControlsView..ownerName",
-          "indexNo": 11,
+          "indexNo": 12,
           "value": {
             "=": "ControlsView.ownerName"
           },
@@ -725,6 +748,15 @@
           "@description": "{i18n>countryCodeDescription}",
           "@Common.Label": "{i18n>countryCode}",
           "@cds.persistence.name": "COUNTRY_CODE"
+        },
+        "controlOwners_ID": {
+          "type": "cds.Integer",
+          "value": {
+            "=": "ControlsView.controlOwners_ID"
+          },
+          "origin": "com.cap.only.control.ControlsView..controlOwners_ID",
+          "@odata.foreignKey4": "controlOwners",
+          "@cds.persistence.name": "CONTROLOWNERS_ID"
         }
       },
       "@cds.persistence.name": "CONTROLSERVICE_CONTROLSVIEW"
@@ -1005,7 +1037,193 @@
           "@cds.persistence.name": "CONTROL_ID"
         }
       },
+      "@cds.persistence.skip": true,
       "@cds.persistence.name": "COM_CAP_ONLY_CONTROL_CONTROLOWNERS"
+    },
+    "com.cap.only.control.ControlView": {
+      "kind": "view",
+      "query": {
+        "op": "query",
+        "from": [
+          {
+            "path": "Controls",
+            "absolute": "com.cap.only.control.Controls"
+          }
+        ],
+        "elements": {
+          "controlName": {
+            "value": {
+              "=": "Controls.controlName"
+            },
+            "indexNo": 1,
+            "origin": "com.cap.only.control.Controls..controlName",
+            "localized": true,
+            "type": "cds.String",
+            "@cds.persistence.name": "CONTROLNAME"
+          },
+          "controlDesc": {
+            "value": {
+              "=": "Controls.controlDesc"
+            },
+            "indexNo": 2,
+            "origin": "com.cap.only.control.Controls..controlDesc",
+            "localized": true,
+            "type": "cds.String",
+            "@cds.persistence.name": "CONTROLDESC"
+          },
+          "controlGroup": {
+            "value": {
+              "=": "Controls.controlGroup"
+            },
+            "indexNo": 3,
+            "origin": "com.cap.only.control.Controls..controlGroup",
+            "type": "cds.String",
+            "@cds.persistence.name": "CONTROLGROUP"
+          },
+          "controlSignificance": {
+            "value": {
+              "=": "Controls.controlSignificance"
+            },
+            "indexNo": 4,
+            "origin": "com.cap.only.control.Controls..controlSignificance",
+            "type": "cds.String",
+            "@cds.persistence.name": "CONTROLSIGNIFICANCE"
+          },
+          "controlRiskLevel": {
+            "value": {
+              "=": "Controls.controlRiskLevel"
+            },
+            "indexNo": 5,
+            "origin": "com.cap.only.control.Controls..controlRiskLevel",
+            "type": "cds.String",
+            "@cds.persistence.name": "CONTROLRISKLEVEL"
+          },
+          "operationFrequency": {
+            "value": {
+              "=": "Controls.operationFrequency"
+            },
+            "indexNo": 6,
+            "origin": "com.cap.only.control.Controls..operationFrequency",
+            "type": "cds.String",
+            "@cds.persistence.name": "OPERATIONFREQUENCY"
+          },
+          "validFrom": {
+            "value": {
+              "=": "Controls.validFrom"
+            },
+            "indexNo": 7,
+            "origin": "com.cap.only.control.Controls..validFrom",
+            "type": "cds.Date",
+            "@cds.persistence.name": "VALIDFROM"
+          },
+          "validTo": {
+            "value": {
+              "=": "Controls.validTo"
+            },
+            "indexNo": 8,
+            "origin": "com.cap.only.control.Controls..validTo",
+            "type": "cds.Date",
+            "@cds.persistence.name": "VALIDTO"
+          },
+          "cdf1": {
+            "value": {
+              "=": "Controls.cdf1"
+            },
+            "indexNo": 9,
+            "origin": "com.cap.only.control.Controls..cdf1",
+            "type": "cds.String",
+            "@cds.persistence.name": "CDF1"
+          }
+        },
+        "kind": "query"
+      },
+      "source": "com.cap.only.control.Controls",
+      "elements": {
+        "controlName": {
+          "value": {
+            "=": "Controls.controlName"
+          },
+          "indexNo": 1,
+          "origin": "com.cap.only.control.Controls..controlName",
+          "localized": true,
+          "type": "cds.String",
+          "@cds.persistence.name": "CONTROLNAME"
+        },
+        "controlDesc": {
+          "value": {
+            "=": "Controls.controlDesc"
+          },
+          "indexNo": 2,
+          "origin": "com.cap.only.control.Controls..controlDesc",
+          "localized": true,
+          "type": "cds.String",
+          "@cds.persistence.name": "CONTROLDESC"
+        },
+        "controlGroup": {
+          "value": {
+            "=": "Controls.controlGroup"
+          },
+          "indexNo": 3,
+          "origin": "com.cap.only.control.Controls..controlGroup",
+          "type": "cds.String",
+          "@cds.persistence.name": "CONTROLGROUP"
+        },
+        "controlSignificance": {
+          "value": {
+            "=": "Controls.controlSignificance"
+          },
+          "indexNo": 4,
+          "origin": "com.cap.only.control.Controls..controlSignificance",
+          "type": "cds.String",
+          "@cds.persistence.name": "CONTROLSIGNIFICANCE"
+        },
+        "controlRiskLevel": {
+          "value": {
+            "=": "Controls.controlRiskLevel"
+          },
+          "indexNo": 5,
+          "origin": "com.cap.only.control.Controls..controlRiskLevel",
+          "type": "cds.String",
+          "@cds.persistence.name": "CONTROLRISKLEVEL"
+        },
+        "operationFrequency": {
+          "value": {
+            "=": "Controls.operationFrequency"
+          },
+          "indexNo": 6,
+          "origin": "com.cap.only.control.Controls..operationFrequency",
+          "type": "cds.String",
+          "@cds.persistence.name": "OPERATIONFREQUENCY"
+        },
+        "validFrom": {
+          "value": {
+            "=": "Controls.validFrom"
+          },
+          "indexNo": 7,
+          "origin": "com.cap.only.control.Controls..validFrom",
+          "type": "cds.Date",
+          "@cds.persistence.name": "VALIDFROM"
+        },
+        "validTo": {
+          "value": {
+            "=": "Controls.validTo"
+          },
+          "indexNo": 8,
+          "origin": "com.cap.only.control.Controls..validTo",
+          "type": "cds.Date",
+          "@cds.persistence.name": "VALIDTO"
+        },
+        "cdf1": {
+          "value": {
+            "=": "Controls.cdf1"
+          },
+          "indexNo": 9,
+          "origin": "com.cap.only.control.Controls..cdf1",
+          "type": "cds.String",
+          "@cds.persistence.name": "CDF1"
+        }
+      },
+      "@cds.persistence.name": "COM_CAP_ONLY_CONTROL_CONTROLVIEW"
     },
     "com.cap.only.control.ControlsView": {
       "kind": "entity",
@@ -1045,38 +1263,55 @@
           "@Common.Label": "{i18n>countryCode}",
           "@cds.persistence.name": "COUNTRY"
         },
-        "controlGroup": {
+        "controlOwners": {
           "indexNo": 5,
+          "type": "cds.Association",
+          "target": "com.cap.only.control.ControlOwners",
+          "cardinality": {
+            "targetMax": "*"
+          },
+          "foreignKeys": {
+            "ID": {
+              "path": "ID",
+              "indexNo": 1,
+              "generatedFieldName": "controlOwners_ID",
+              "@cds.persistence.name": "ID"
+            }
+          },
+          "@cds.persistence.name": "CONTROLOWNERS"
+        },
+        "controlGroup": {
+          "indexNo": 6,
           "type": "cds.String",
           "@cds.persistence.name": "CONTROLGROUP"
         },
         "controlRiskLevel": {
-          "indexNo": 6,
+          "indexNo": 7,
           "type": "cds.String",
           "@cds.persistence.name": "CONTROLRISKLEVEL"
         },
         "controlSignificance": {
-          "indexNo": 7,
+          "indexNo": 8,
           "type": "cds.String",
           "@cds.persistence.name": "CONTROLSIGNIFICANCE"
         },
         "operationFrequency": {
-          "indexNo": 8,
+          "indexNo": 9,
           "type": "cds.String",
           "@cds.persistence.name": "OPERATIONFREQUENCY"
         },
         "validFrom": {
-          "indexNo": 9,
+          "indexNo": 10,
           "type": "cds.Date",
           "@cds.persistence.name": "VALIDFROM"
         },
         "validTo": {
-          "indexNo": 10,
+          "indexNo": 11,
           "type": "cds.Date",
           "@cds.persistence.name": "VALIDTO"
         },
         "ownerName": {
-          "indexNo": 11,
+          "indexNo": 12,
           "type": "cds.String",
           "@cds.persistence.name": "OWNERNAME"
         },
@@ -1089,6 +1324,11 @@
           "@description": "{i18n>countryCodeDescription}",
           "@Common.Label": "{i18n>countryCode}",
           "@cds.persistence.name": "COUNTRY_CODE"
+        },
+        "controlOwners_ID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "controlOwners",
+          "@cds.persistence.name": "CONTROLOWNERS_ID"
         }
       },
       "@cds.persistence.name": "COM_CAP_ONLY_CONTROL_CONTROLSVIEW"

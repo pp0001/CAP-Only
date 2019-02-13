@@ -16,40 +16,45 @@
   </properties>
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
-    <resources>
+    <!-- <resources>
       <resource>
         <directory>src/main/resources</directory>
       </resource>
-    </resources>
+    </resources> -->
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <!-- <version>1.6.0</version>
         <configuration>
           <executable>npm</executable>
           <workingDirectory>${project.basedir}/../</workingDirectory>
-        </configuration>
+        </configuration> -->
         <executions>
           <execution>
-            <id>npm install</id>
+            <id>npm install(initialize)</id>
             <goals>
               <goal>exec</goal>
             </goals>
             <phase>generate-sources</phase>
             <configuration>
+              <executable>npm</executable>
+			  <workingDirectory>${project.basedir}/../</workingDirectory>
               <arguments>
                 <argument>install</argument>
               </arguments>
             </configuration>
           </execution>
           <execution>
-            <id>npm run build</id>
+            <id>npm run build cds</id>
             <goals>
               <goal>exec</goal>
             </goals>
             <phase>generate-sources</phase>
             <configuration>
+              <!--assuming npm is in the $PATH -->
+			  <executable>npm</executable>
+			  <workingDirectory>${project.basedir}/../</workingDirectory>
               <arguments>
                 <argument>run</argument>
                 <argument>build</argument>
@@ -58,7 +63,18 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+			<artifactId>maven-war-plugin</artifactId>
+			<configuration>
+				<packagingExcludes>**/connection.properties*</packagingExcludes>
+			</configuration>
+	</plugin>
     </plugins>
+    <resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
   </build>
   <profiles>
     <profile>
@@ -72,7 +88,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-war-plugin</artifactId>
-            <version>3.0.0</version>
+            <!-- <version>3.0.0</version> -->
             <configuration>
               <webResources combine.children="append">
                 <resource>

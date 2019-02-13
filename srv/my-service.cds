@@ -5,7 +5,7 @@ using com.sap.grc.ctrl.controlRiskLevel from '../db/models/controlRiskLevel';
 using com.sap.grc.ctrl.operationFrequency from '../db/models/operationFrequency';
 
 service ControlService {
-  entity ControlOwners @insert as projection on only.control.ControlOwners;
+  entity ControlOwners as projection on only.control.ControlOwners;
   entity ControlGroups @insert @update @read as projection on controlGroup.ControlGroup;
   entity Controls @read @insert @update as projection on only.control.Controls;
   entity texts @readonly as projection on only.control.Controls_texts;

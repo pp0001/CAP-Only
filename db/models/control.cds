@@ -35,6 +35,8 @@ context control {
 	    controlName : String;
 	    controlDesc : String;
 	  }
+	
+	@cds.persistence.skip
 	entity ControlOwners {
 	  key ID : Integer;
 	  control : Association to Controls;
@@ -42,11 +44,26 @@ context control {
 	  ownerEmail : String;
 	}
 	
+	view ControlView as select from Controls
+	//association [1..*] to ControlOwners on controlOwners.control = $self
+	{
+		Controls.controlName,
+		Controls.controlDesc,
+		Controls.controlGroup,
+		Controls.controlSignificance,
+		Controls.controlRiskLevel,
+		Controls.operationFrequency,
+		Controls.validFrom,
+		Controls.validTo,
+		Controls.cdf1,
+	};
+	
 	entity ControlsView {
 		key ID : Integer;
 		  controlName  : localized String;
 		  controlDesc  : localized String;
 		  country : Country;
+		  controlOwners : Association to many ControlOwners ;
 		  controlGroup : String;
 		  controlRiskLevel: String;
 		  controlSignificance: String;

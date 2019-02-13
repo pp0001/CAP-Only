@@ -52,6 +52,10 @@
           <End Role="ControlsView" EntitySet="ControlsView"/>
           <End Role="sap_common_Countries" EntitySet="sap_common_Countries"/>
         </AssociationSet>
+        <AssociationSet Name="ControlsView_controlOwners" Association="ControlService.ControlsView_controlOwners">
+          <End Role="ControlsView" EntitySet="ControlsView"/>
+          <End Role="ControlOwners" EntitySet="ControlOwners"/>
+        </AssociationSet>
       </EntityContainer>
       <EntityType Name="ControlOwners">
         <Key>
@@ -146,6 +150,7 @@
         <Property Name="controlName" Type="Edm.String"/>
         <Property Name="controlDesc" Type="Edm.String"/>
         <NavigationProperty Name="country" Relationship="ControlService.ControlsView_country" FromRole="ControlsView" ToRole="sap_common_Countries"/>
+        <NavigationProperty Name="controlOwners" Relationship="ControlService.ControlsView_controlOwners" FromRole="ControlsView" ToRole="ControlOwners"/>
         <Property Name="controlGroup" Type="Edm.String"/>
         <Property Name="controlRiskLevel" Type="Edm.String"/>
         <Property Name="controlSignificance" Type="Edm.String"/>
@@ -154,6 +159,7 @@
         <Property Name="validTo" Type="Edm.DateTime" sap:display-format="Date"/>
         <Property Name="ownerName" Type="Edm.String"/>
         <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+        <Property Name="controlOwners_ID" Type="Edm.Int32"/>
       </EntityType>
       <EntityType Name="sap_common_Countries">
         <Key>
@@ -208,6 +214,18 @@
           </Principal>
           <Dependent Role="ControlsView">
             <PropertyRef Name="country_code"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="ControlsView_controlOwners">
+        <End Role="ControlsView" Type="ControlService.ControlsView" Multiplicity="*"/>
+        <End Role="ControlOwners" Type="ControlService.ControlOwners" Multiplicity="*"/>
+        <ReferentialConstraint>
+          <Principal Role="ControlOwners">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="ControlsView">
+            <PropertyRef Name="controlOwners_ID"/>
           </Dependent>
         </ReferentialConstraint>
       </Association>
